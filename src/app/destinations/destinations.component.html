@@ -7,28 +7,28 @@
 
   <!-- Search Bar -->
   <div class="input-group mt-4">
-    <input type="text" class="form-control" placeholder="Search destinations">
-    <button class="btn btn-primary" type="button">Search</button>
+    <input type="text" class="form-control" placeholder="Search destinations" [(ngModel)]="searchItem" (input)="searchDestinations()">
+    <button class="btn btn-primary" type="button" (click)="searchDestinations()">Search</button>
   </div>
 
   <!-- Popular Destinations -->
   <h2 class="mt-5">Popular Destinations</h2>
   <div class="row">
     <!-- Destination cards -->
-    <div class="col-md-4 mt-4" *ngFor="let destination of destinations">
+    <div class="col-md-4 mt-4" *ngFor="let destination of pagedDestinations">
       <div class="card">
         <img [src]="destination.image" class="card-img-top" alt="Destination Image">
         <div class="card-body">
           <h5 class="card-title">{{destination.name}}</h5>
           <p class="card-text">{{destination.description}}</p>
-          <a href="#" class="btn btn-primary">View Details</a>
+          <a href="#" (click)="selectDestination(destination)" class="btn btn-primary">View Details</a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Pagination -->
-  <nav class="mt-5">
+  <nav class="mt-5 d-flex justify-content-center">
     <ul class="pagination">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)" tabindex="-1" aria-disabled="true">Previous</a>
@@ -42,3 +42,4 @@
     </ul>
   </nav>
 </div>
+<app-destination-details-dialog [destination]="selectedDestination"></app-destination-details-dialog>

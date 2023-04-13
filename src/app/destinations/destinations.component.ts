@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { WebSqlService } from '../services/websql.service';
 import { Destination } from '../interfaces/destination.interface';
+import {DestinationDetailsDialogComponent} from "../destination-details-dialog/destination-details-dialog.component";
 
 @Component({
   selector: 'app-destinations',
@@ -8,11 +9,16 @@ import { Destination } from '../interfaces/destination.interface';
   styleUrls: ['./destinations.component.css']
 })
 export class DestinationsComponent implements OnInit {
+  // @ViewChild(DestinationDetailsDialogComponent, { static: false })
+  // destinationDetailsDialog: DestinationDetailsDialogComponent;
   destinations: Destination[] = [];
   currentPage: number;
   itemsPerPage: number;
   pagedDestinations: any[];
 
+  //selectedDestination: Destination = {} as Destination;
+  selectedDestination: Destination | null = null;
+  searchItem: string = ''; // variable for search string in a search bar
   constructor(private webSqlService: WebSqlService) {
     this.currentPage = 1;
     this.itemsPerPage = 4;
@@ -20,7 +26,7 @@ export class DestinationsComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // Add sample destinations data, if needed
+    // Destinations
     await this.webSqlService.addDestinationData([
       {
         id: 1,
@@ -110,8 +116,42 @@ export class DestinationsComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedDestinations = this.destinations.slice(startIndex, endIndex);
   }
+
+  // /**Opens a window when user click 'View Detail'*/
+  // openDestinationDetailsDialog(destination: Destination): void {
+  //   this.selectedDestination = destination;
+  //   this.destinationDetailsDialog.openModal();
+  // }
+
+  selectDestination(destination: Destination) {
+    this.selectedDestination = destination;
+  }
+  deselectDestination() {
+    this.selectedDestination = null;
+  }
+
+  /**Search bar functions*/
+  searchDestinations(): void {
+      if (!this.searchItem) {
+      this.updatePagedDestinations();
+      return;
+    }
+
+    const filteredDestinations = this.destinations.filter(destination =>
+      destination.name.toLowerCase().includes(this.searchItem.toLowerCase()) ||
+      destination.description.toLowerCase().includes(this.searchItem.toLowerCase())
+    );
+
+    this.pagedDestinations = filteredDestinations.slice(0, this.itemsPerPage);
+    this.currentPage = 1;
+  }
+
+  /**
+   *Pagination pages */
   goToPage(page: number): void {
     this.currentPage = page;
     this.updatePagedDestinations();
   }
 }
+
+
