@@ -1,0 +1,7 @@
+@media (max-width: 991.98px) {
+  .navbar .mobile-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
