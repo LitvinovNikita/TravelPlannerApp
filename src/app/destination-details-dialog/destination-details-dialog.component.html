@@ -1,19 +1,22 @@
-<!--<div class="modal" tabindex="-1" [ngClass]="{'show': selectedDestination}" [ngStyle]="{'display': selectedDestination ? 'block' : 'none'}" (click)="deselectDestination()">-->
-<!--  <div class="modal-dialog">-->
-<!--    <div class="modal-dialog">-->
-<!--      <div class="modal-content">-->
-<!--        <div class="modal-header">-->
-<!--          <h5 class="modal-title">{{ destination.name }}</h5>-->
-<!--          <button type="button" class="btn-close" aria-label="Close" (click)="deselectDestination()"></button>-->
-<!--        </div>-->
-<!--      <div class="modal-body">-->
-<!--        <app-destination-details-dialog *ngIf="selectedDestination" [destination]="selectedDestination"></app-destination-details-dialog>-->
-<!--      </div>-->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal.emit()"></button>-->
-<!--        <button type="button" class="btn btn-primary" (click)="addToTripPlan()">Add to your trip plan</button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--  &lt;!&ndash;<app-destination-details-dialog *ngIf="selectedDestination" [destination]="selectedDestination" (closeModal)="deselectDestination()"></app-destination-details-dialog>&ndash;&gt;-->
+<div class="modal fade" id="destinationDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ destination?.name }}</h5>
+          <!-- Call the close() method when the close button is clicked -->
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addToTripPlan()">Add to your trip plan</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Add *ngIf="destinationDetailsDialog" -->
+  <!--<app-destination-details-dialog *ngIf="destinationDetailsDialog" #destinationDetailsDialog></app-destination-details-dialog>-->
+
+</div>

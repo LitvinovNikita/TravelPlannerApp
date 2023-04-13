@@ -21,7 +21,7 @@
         <div class="card-body">
           <h5 class="card-title">{{destination.name}}</h5>
           <p class="card-text">{{destination.description}}</p>
-          <a href="#" (click)="selectDestination(destination)" class="btn btn-primary">View Details</a>
+          <button class="btn btn-primary" (click)="viewDetails(destination)">View Detail</button>
         </div>
       </div>
     </div>
@@ -42,4 +42,10 @@
     </ul>
   </nav>
 </div>
-<app-destination-details-dialog [destination]="selectedDestination"></app-destination-details-dialog>
+
+<!-- Add *ngIf="destinationDetailsDialog" -->
+<!-- Remove *ngIf="destinationDetailsDialog" -->
+<app-destination-details-dialog #destinationDetailsDialog></app-destination-details-dialog>
+
+
+

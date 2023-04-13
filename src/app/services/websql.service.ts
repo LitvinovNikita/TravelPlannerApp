@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Destination } from '../interfaces/destination.interface';
+import {Place} from "../interfaces/place.interface";
+
 @Injectable({
   providedIn: 'root',
 })

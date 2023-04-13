@@ -9,7 +9,8 @@ import {DestinationDetailsDialogComponent} from "../destination-details-dialog/d
   styleUrls: ['./destinations.component.css']
 })
 export class DestinationsComponent implements OnInit {
-  // @ViewChild(DestinationDetailsDialogComponent, { static: false })
+  @ViewChild(DestinationDetailsDialogComponent, { static: false }) destinationDetailsDialog!: DestinationDetailsDialogComponent;
+
   // destinationDetailsDialog: DestinationDetailsDialogComponent;
   destinations: Destination[] = [];
   currentPage: number;
@@ -123,6 +124,13 @@ export class DestinationsComponent implements OnInit {
   //   this.destinationDetailsDialog.openModal();
   // }
 
+  viewDetails(destination: Destination): void {
+    this.selectedDestination = destination;
+    this.destinationDetailsDialog.openModal();
+    console.log('View Details clicked');
+    console.log(this.destinationDetailsDialog);
+  }
+
   selectDestination(destination: Destination) {
     this.selectedDestination = destination;
   }
@@ -152,6 +160,8 @@ export class DestinationsComponent implements OnInit {
     this.currentPage = page;
     this.updatePagedDestinations();
   }
+
+
 }
 
 

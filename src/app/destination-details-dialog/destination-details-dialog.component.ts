@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import {Destination} from "../interfaces/destination.interface";
 import { Router } from '@angular/router';
 
 declare var $: any;
+
 
 @Component({
   selector: 'app-destination-details-dialog',
@@ -14,13 +15,24 @@ export class DestinationDetailsDialogComponent implements OnInit{
   @Input() destination: Destination | null = null;
   //@Output() closeModal = new EventEmitter<void>();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit(): void {
   }
 
   openModal(): void {
-    $('#destinationDetailsModal').modal('show');
+    const modal = this.el.nativeElement.querySelector('#destinationDetailsModal');
+    this.renderer.addClass(modal, 'show');
+    this.renderer.setStyle(modal, 'display', 'block');
+    this.renderer.setStyle(modal, 'padding-right', '16px');
+    this.renderer.addClass(document.body, 'modal-open');
+  }
+  closeModal(): void {
+    const modal = this.el.nativeElement.querySelector('#destinationDetailsModal');
+    this.renderer.removeClass(modal, 'show');
+    this.renderer.setStyle(modal, 'display', 'none');
+    this.renderer.setStyle(modal, 'padding-right', '');
+    this.renderer.removeClass(document.body, 'modal-open');
   }
 
   addToTripPlan(): void {
