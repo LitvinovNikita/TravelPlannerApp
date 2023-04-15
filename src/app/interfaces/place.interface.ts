@@ -3,5 +3,4 @@ export interface Place {
   destinationId: number;
   name: string;
   longDescription: string;
-  image: string;
 }

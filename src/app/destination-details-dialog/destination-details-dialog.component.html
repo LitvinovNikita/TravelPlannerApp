@@ -1,22 +1,114 @@
-<div class="modal fade" id="destinationDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ destination?.name }}</h5>
-          <!-- Call the close() method when the close button is clicked -->
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
-        </div>
+<div class="modal" tabindex="-1" role="dialog" #modal>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Destination Details</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
       <div class="modal-body">
-
+        <p *ngIf="!places || places.length === 0">Loading details...</p>
+        <div *ngFor="let place of places">
+          <h6>{{ place.name }}</h6>
+          <p>{{ place.longDescription}}</p>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addToTripPlan()">Add to your trip plan</button>
+        <button type="button" class="btn btn-primary">Add to your trip plan</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
       </div>
     </div>
   </div>
 </div>
-  <!-- Add *ngIf="destinationDetailsDialog" -->
-  <!--<app-destination-details-dialog *ngIf="destinationDetailsDialog" #destinationDetailsDialog></app-destination-details-dialog>-->
 
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="modal fade" id="destinationDetailsModal" #destinationDetailsModal tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--<div class="modal-dialog">-->
+<!--    <div class="modal-dialog">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <h5 class="modal-title">{{ destination?.name }}</h5>-->
+<!--          &lt;!&ndash; Call the close() method when the close button is clicked &ndash;&gt;-->
+<!--          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          &lt;!&ndash;<div *ngIf="!places || places.length === 0">&ndash;&gt;-->
+<!--          &lt;!&ndash;  <p>Loading details...</p>&ndash;&gt;-->
+<!--          &lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+<!--          <p *ngIf="!places || places.length === 0">Loading details...</p>-->
+<!--          <ul *ngIf="places && places.length > 0">-->
+<!--            <li *ngFor="let place of places">{{ place.name }}</li>-->
+<!--          </ul>-->
+
+
+
+<!--          &lt;!&ndash;  div to loop through the places array &ndash;&gt;-->
+<!--          <div *ngFor="let place of places">-->
+<!--            <h6>{{ place.name }}</h6>-->
+<!--            <p>{{ place.longDescription}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-primary" (click)="addToTripPlan()">Add to your trip plan</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  &lt;!&ndash; Add *ngIf="destinationDetailsDialog" &ndash;&gt;-->
+<!--  &lt;!&ndash;<app-destination-details-dialog *ngIf="destinationDetailsDialog" #destinationDetailsDialog></app-destination-details-dialog>&ndash;&gt;-->
+<!--</div>-->
+
+
+<!--<div class="modal fade" #modal tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title">{{ destination?.name }}</h5>-->
+<!--        &lt;!&ndash; Call the close() method when the close button is clicked &ndash;&gt;-->
+<!--        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <p *ngIf="!places || places.length === 0">Loading details...</p>-->
+<!--        <ul *ngIf="places && places.length > 0">-->
+<!--          <li *ngFor="let place of places">{{ place.name }}</li>-->
+<!--        </ul>-->
+
+<!--        &lt;!&ndash;  div to loop through the places array &ndash;&gt;-->
+<!--        <div *ngFor="let place of places">-->
+<!--          <h6>{{ place.name }}</h6>-->
+<!--          <p>{{ place.longDescription}}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-primary" (click)="addToTripPlan()">Add to your trip plan</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
