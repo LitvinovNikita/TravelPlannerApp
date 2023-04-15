@@ -29,16 +29,18 @@ export class WebSqlService {
       )`,
         []
       );
-      // tx.executeSql(
-      //   `CREATE TABLE IF NOT EXISTS trips (
-      //   id INTEGER PRIMARY KEY,
-      //   destination TEXT,
-      //   startDate DATE,
-      //   endDate DATE,
-      //   budget REAL
-      // )`,
-      //   []
-      // );
+      tx.executeSql(
+        `CREATE TABLE IF NOT EXISTS trips (
+        id INTEGER PRIMARY KEY,
+        destination TEXT,
+        startDate DATE,
+        endDate DATE,
+        duration INTEGER NOT NULL,
+        budget REAL,
+        notes TEXT
+      )`,
+        []
+      );
 
     });
   }
@@ -153,43 +155,101 @@ export class WebSqlService {
     });
   }
 
-  // addTripData(trip: Trip): Promise<void> {
-  //   return new Promise((resolve, reject) => {
-  //     this.db.transaction((tx: any) => {
-  //         tx.executeSql(
-  //           'INSERT INTO trips (destination, startDate, endDate, budget) VALUES (?, ?, ?, ?)',
-  //           [trip.destination, trip.startDate, trip.endDate, trip.budget],
-  //           (tx: any, results: any) => {
-  //             console.log('Inserted ID:', results.insertId);
-  //           }
-  //         );
-  //       },
-  //       (error: any) => {
-  //         console.error('Error in addTripData:', error);
-  //         reject(error);
-  //       },
-  //       () => {
-  //         resolve();
-  //       });
-  //   });
-  // }
 
-  // fetchTrips(): Promise<Trip[]> {
+  //TRIPS
+  // async addTrip(trip: any): Promise<number> {
   //   return new Promise((resolve, reject) => {
   //     this.db.transaction((tx: any) => {
-  //         tx.executeSql('SELECT * FROM trips', [], (tx: any, results: any) => {
-  //           let trips: Trip[] = [];
-  //           for (let i = 0; i < results.rows.length; i++) {
-  //             trips.push(results.rows.item(i));
-  //           }
-  //           resolve(trips);
-  //         });
-  //       },
-  //       (error: any) => {
-  //         reject(error);
-  //       });
+  //       tx.executeSql(
+  //         'INSERT INTO trips (destination, startDate, endDate, budget, notes) VALUES (?, ?, ?, ?, ?)',
+  //         [trip.destination, trip.startDate, trip.endDate, trip.budget, trip.notes],
+  //         (tx: any, results: any) => {
+  //           resolve(results.insertId);
+  //         }
+  //       );
+  //     }, (error: any) => {
+  //       reject(error);
+  //     });
   //   });
   // }
+  async addTrip(destination: string, startDate: string, endDate: string, duration: number, budget: number, notes: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx: any) => {
+        const sql = 'INSERT INTO trips (destination, startDate, endDate, duration, budget, notes) VALUES (?, ?, ?, ?, ?, ?)';
+        tx.executeSql(
+          sql,
+          [destination, startDate, endDate, duration, budget, notes],
+          () => {
+            resolve();
+          },
+          (error: any) => {
+            console.error('Error in addTrip:', error);
+            reject(error);
+          }
+        );
+      });
+    });
+  }
+
+  async updateTrip(trip: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx: any) => {
+        tx.executeSql(
+          'UPDATE trips SET destination = ?, startDate = ?, endDate = ?, budget = ?, notes = ? WHERE id = ?',
+          [trip.destination, trip.startDate, trip.endDate, trip.budget, trip.notes, trip.id]
+        );
+      }, (error: any) => {
+        reject(error);
+      }, () => {
+        resolve();
+      });
+    });
+  }
+  async selectTrip(id: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx: any) => {
+        tx.executeSql('SELECT * FROM trips WHERE id = ?', [id], (tx: any, results: any) => {
+          if (results.rows.length > 0) {
+            resolve(results.rows.item(0));
+          } else {
+            resolve(null);
+          }
+        });
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  async selectAll(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx: any) => {
+        tx.executeSql('SELECT * FROM trips', [], (tx: any, results: any) => {
+          let trips: any[] = [];
+          for (let i = 0; i < results.rows.length; i++) {
+            trips.push(results.rows.item(i));
+          }
+          resolve(trips);
+        });
+      }, (error: any) => {
+        reject(error);
+      });
+    });
+  }
+
+  async deleteTrip(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx: any) => {
+        tx.executeSql('DELETE FROM trips WHERE id = ?', [id]);
+      }, (error: any) => {
+        reject(error);
+      }, () => {
+        resolve();
+      });
+    });
+  }
+
+
 
 
 

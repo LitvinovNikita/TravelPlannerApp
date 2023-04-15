@@ -1,3 +1,96 @@
+<div class="container">
+  <h1 class="my-4">Create a Trip</h1>
+  <form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="mb-5">
+    <div class="form-group">
+      <label for="destination">Destination</label>
+      <input type="text" class="form-control" id="destination" formControlName="destination" required>
+      <div *ngIf="tripForm.controls['destination'].invalid && tripForm.controls['destination'].touched" class="text-danger">
+        Destination is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="startDate">Start Date</label>
+      <input type="date" class="form-control" id="startDate" formControlName="startDate" required>
+      <div *ngIf="tripForm.controls['startDate'].invalid && tripForm.controls['startDate'].touched" class="text-danger">
+        Start date is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="endDate">End Date</label>
+      <input type="date" class="form-control" id="endDate" formControlName="endDate" required>
+      <div *ngIf="tripForm.controls['endDate'].invalid && tripForm.controls['endDate'].touched" class="text-danger">
+        End date is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration (days)</label>
+      <input type="text" class="form-control" id="duration" [value]="duration" disabled>
+    </div>
+
+    <div class="form-group">
+      <label for="budget">Budget</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">$</div>
+        </div>
+        <input type="number" class="form-control" id="budget" formControlName="budget" required>
+      </div>
+      <div *ngIf="tripForm.controls['budget'].invalid && tripForm.controls['budget'].touched" class="text-danger">
+        Budget is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="notes">Notes</label>
+      <textarea class="form-control" id="notes" formControlName="notes"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" >Create Trip</button>
+    <button type="button" class="btn btn-secondary ml-2" (click)="clearForm()">Clear</button>
+
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--<div class="container mt-4">-->
 <!--  <h1>Trip Planner</h1>-->
 <!--  <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">-->

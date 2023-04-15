@@ -14,6 +14,7 @@ import { MyTripsComponent } from './my-trips/my-trips.component';
 import { AboutComponent } from './about/about.component';
 
 import { DestinationDetailsDialogComponent } from './destination-details-dialog/destination-details-dialog.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DestinationDetailsDialogComponent } from './destination-details-dialog/
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   entryComponents: [DestinationDetailsDialogComponent],
   providers: [WebSqlService],

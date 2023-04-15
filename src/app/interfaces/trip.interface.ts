@@ -3,5 +3,7 @@ export interface Trip {
   destination: string;
   startDate: Date;
   endDate: Date;
+  duration: number;
   budget: number;
+  notes?: string;
 }
