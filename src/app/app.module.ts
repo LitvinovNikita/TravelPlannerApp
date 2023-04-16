@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //import { DestinationService } from './services/destination.service';
 import { WebSqlService } from './services/websql.service';
-
+import {TripDataService} from "./services/trip-data.service";
 
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
@@ -15,7 +15,7 @@ import { AboutComponent } from './about/about.component';
 
 import { DestinationDetailsDialogComponent } from './destination-details-dialog/destination-details-dialog.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { TripDetailComponent } from './trip-detail/trip-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { TripDetailComponent } from './trip-detail/trip-detail.component';
     MyTripsComponent,
     AboutComponent,
     DestinationDetailsDialogComponent,
-    TripDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +34,7 @@ import { TripDetailComponent } from './trip-detail/trip-detail.component';
     ReactiveFormsModule,
   ],
   entryComponents: [DestinationDetailsDialogComponent],
-  providers: [WebSqlService],
+  providers: [WebSqlService, TripDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,4 @@
+
 <div class="container">
   <div class="row">
     <div class="col-md-4" *ngFor="let trip of trips">
@@ -14,7 +15,9 @@
         </div>
         <div class="card-footer">
           <!--<button class="btn btn-primary" (click)="updateTrip(trip, 'New Destination')">Update</button>-->
-          <button class="btn btn-primary" (click)="updateTrip(trip, 'New Destination')">Update</button>
+          <!--<button class="btn btn-primary" (click)="updateTrip(trip, 'New Destination')">Update</button>-->
+          <!--<button class="btn btn-primary" (click)="openEditTripModal(trip)">Edit</button>-->
+          <button class="btn btn-primary"(click)="editTrip(trip)">Edit</button>
 
 
           <button class="btn btn-danger" (click)="trip.id !== undefined && deleteTrip(trip.id)">Delete</button>
