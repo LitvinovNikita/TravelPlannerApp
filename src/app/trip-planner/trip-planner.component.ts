@@ -5,6 +5,7 @@ import { WebSqlService } from '../services/websql.service';
 import { TripDataService } from '../services/trip-data.service';
 
 
+
 @Component({
   selector: 'app-trip-planner',
   templateUrl: './trip-planner.component.html',
@@ -20,6 +21,8 @@ export class TripPlannerComponent implements OnInit {
 
   isEditMode = false;
   notification = '';
+  today: string = new Date().toISOString().split('T')[0];
+
   constructor(private formBuilder: FormBuilder, private webSqlService: WebSqlService, private tripDataService: TripDataService) {
     this.tripForm = this.formBuilder.group({
       destination: ['', Validators.required],
@@ -196,6 +199,8 @@ export class TripPlannerComponent implements OnInit {
       console.log('updating trip:', updatedTrip);
       this.webSqlService.updateTrip(updatedTrip).then(() => {
         alert('Trip updated successfully!');
+      }).catch((error) => {
+        console.error('Error updating trip:', error);
       });
     } else {
       // Add the trip

@@ -195,8 +195,8 @@ export class WebSqlService {
     return new Promise((resolve, reject) => {
       this.db.transaction((tx: any) => {
         tx.executeSql(
-          'UPDATE trips SET destination = ?, startDate = ?, endDate = ?, budget = ?, notes = ? WHERE id = ?',
-          [trip.destination, trip.startDate, trip.endDate, trip.budget, trip.notes, trip.id]
+          'UPDATE trips SET destination = ?, startDate = ?, endDate = ?, duration = ?, budget = ?, notes = ? WHERE id = ?',
+          [trip.destination, trip.startDate, trip.endDate, trip.duration, trip.budget, trip.notes, trip.id]
         );
       }, (error: any) => {
         reject(error);
