@@ -11,7 +11,12 @@ export class TripPlannerComponent implements OnInit {
   tripForm: FormGroup;
   trips: any[] = [];
 
+  selectedTrip: any;
+
   duration = '';
+
+
+  notification = '';
   constructor(private formBuilder: FormBuilder, private webSqlService: WebSqlService) {
     this.tripForm = this.formBuilder.group({
       destination: ['', Validators.required],
@@ -63,6 +68,10 @@ export class TripPlannerComponent implements OnInit {
 
     // Refresh the trips array
     this.trips = await this.webSqlService.selectAll();
+
+    // Notify the user and clear the form fields
+    alert('Trip added successfully!');
+    this.tripForm.reset();
   }
 
   onSubmit() {
@@ -75,6 +84,8 @@ export class TripPlannerComponent implements OnInit {
   }
   clearForm() {
     this.tripForm.reset();
+    this.duration = '';
+    this.notification = '';
   }
 
 
@@ -93,22 +104,58 @@ export class TripPlannerComponent implements OnInit {
     }
   }
 
-  async updateTrip(id: number, destination: string, startDate: string, endDate: string, budget: string, notes: string) {
+
+
+  editTrip(trip: any) {
+    this.selectedTrip = trip;
+    this.tripForm.setValue({
+      destination: trip.destination,
+      startDate: trip.startDate,
+      endDate: trip.endDate,
+      budget: trip.budget,
+      notes: trip.notes
+    });
+  }
+  // async updateTrip(id: number, destination: string, startDate: string, endDate: string, budget: string, notes: string) {
+  //   // Fetch the trip by ID
+  //   const trip = await this.webSqlService.selectTrip(id);
+  //
+  //   // Update the trip
+  //   trip.destination = destination;
+  //   trip.startDate = startDate;
+  //   trip.endDate = endDate;
+  //   trip.budget = budget;
+  //   trip.notes = notes;
+  //
+  //   await this.webSqlService.updateTrip(trip);
+  //
+  //   // Refresh the trips array
+  //   this.trips = await this.webSqlService.selectAll();
+  // }
+
+  async updateTrip(trip: Trip) {
     // Fetch the trip by ID
-    const trip = await this.webSqlService.selectTrip(id);
+    const updatedTrip: Trip = {
+      ...trip,
+      destination: this.tripForm.get('destination')?.value,
+      startDate: this.tripForm.get('startDate')?.value,
+      endDate: this.tripForm.get('endDate')?.value,
+      budget: this.tripForm.get('budget')?.value,
+      notes: this.tripForm.get('notes')?.value
+    };
 
-    // Update the trip
-    trip.destination = destination;
-    trip.startDate = startDate;
-    trip.endDate = endDate;
-    trip.budget = budget;
-    trip.notes = notes;
-
-    await this.webSqlService.updateTrip(trip);
+    // Update the trip in the database
+    await this.webSqlService.updateTrip(updatedTrip);
 
     // Refresh the trips array
     this.trips = await this.webSqlService.selectAll();
+
+    // Reset the form
+    this.tripForm.reset();
+    this.duration = '';
+    this.notification = 'Trip updated successfully!';
   }
+
 
 
   async deleteTrip(id: number) {

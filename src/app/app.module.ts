@@ -15,6 +15,7 @@ import { AboutComponent } from './about/about.component';
 
 import { DestinationDetailsDialogComponent } from './destination-details-dialog/destination-details-dialog.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { TripDetailComponent } from './trip-detail/trip-detail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     TripPlannerComponent,
     MyTripsComponent,
     AboutComponent,
-    DestinationDetailsDialogComponent
+    DestinationDetailsDialogComponent,
+    TripDetailComponent
   ],
   imports: [
     BrowserModule,
