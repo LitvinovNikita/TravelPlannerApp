@@ -21,17 +21,7 @@
         <div class="card-body">
           <h5 class="card-title">{{destination.name}}</h5>
           <p class="card-text">{{destination.description}}</p>
-          <!--<button class="btn btn-primary" (click)="viewDetails(destination)">View Detail</button>-->
-          <!--<button class="btn btn-primary" (click)="openDestinationDetailsDialog(destination)">View Detail</button>-->
-          <!--<button (click)="showModal(destination)">View Details</button>-->
           <button class="btn btn-primary" type="button" (click)="viewDetails(destination)">View Details</button>
-
-
-          <!--<h3>Places:</h3>-->
-          <!--<ul>-->
-          <!--  <li *ngFor="let place of places">{{ place.name }}</li>-->
-          <!--</ul>-->
-
         </div>
       </div>
     </div>
@@ -53,19 +43,11 @@
   </nav>
 </div>
 
-
+<!--including the DestinationDetailsDialogComponent in the DestinationsComponent using its selector app-destination-details-dialog. The #destinationDetailsDialog attribute is creating a template reference variable to the component instance for use within the DestinationsComponent template.-->
 <app-destination-details-dialog #destinationDetailsDialog></app-destination-details-dialog>
 
 
-<!-- Add *ngIf="destinationDetailsDialog" -->
-<!-- Remove *ngIf="destinationDetailsDialog" -->
 
-
-
-<!--<app-destination-details-dialog #destinationDetailsDialog></app-destination-details-dialog>-->
-
-
-<!--<app-destination-details-dialog [destination]="selectedDestination" #destinationDetailsDialog></app-destination-details-dialog>-->
 
 
 

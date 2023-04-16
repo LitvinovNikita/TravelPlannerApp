@@ -119,7 +119,9 @@ export class DestinationsComponent implements OnInit {
     // Update pagedDestinations based on currentPage and itemsPerPage
     this.updatePagedDestinations();
 
-
+    /**
+     * Add places data into the table
+     */
     await this.webSqlService.addPlacesData([
       {
         id: 1,
@@ -199,48 +201,20 @@ export class DestinationsComponent implements OnInit {
 
 
   }
-
+  /**
+   * Updates the displayed destinations based on the current page and items per page.
+   */
   updatePagedDestinations(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedDestinations = this.destinations.slice(startIndex, endIndex);
   }
 
-  /**Opens a window when user click 'View Detail'*/
-  // openDestinationDetailsDialog(destination: Destination) {
-  //   this.destinationDetailsDialog.destination = destination;
-  //   this.destinationDetailsDialog.places = this.places; // CHECK THIS
-  //   this.destinationDetailsDialog.openModal();
-  //   console.log('Places in DestinationsComponent:', this.places); // Log the places data
-  // }
-
-
-  // async openDestinationDetailsDialog(destination: Destination) {
-  //   this.destinationDetailsDialog.destination = destination;
-  //   this.destinationDetailsDialog.showModal();
-  //   this.destinationDetailsDialog.fetchPlaces(destination.id);
-  // }
-
-  // openDestinationDetailsDialog(destination: any): void {
-  //   this.destination = destination;
-  //   this.modal.nativeElement.style.display = 'block';
-  // }
-
-  // showModal(destination: any): void {
-  //   // this.destinationDetailsDialog.destination = destination;
-  //   // this.destinationDetailsDialog.open();
-  //   this.destinationDetailsDialog.openDestinationDetailsDialog(destination);
-  // }
-
-  /*
-  *  openDestinationDetailsDialog(destination: Destination): void {
-    this.selectedDestination = destination;
-    this.destinationDetailsDialog.openModal();
-  }
-  *
-  * */
-
-
+  /**
+   * Fetches the places for the specified destination ID.
+   * @param destinationId - The ID of the destination to fetch places for.
+   * @returns A Promise containing an array of places for the specified destination ID.
+   */
   async fetchPlaces(destinationId: number): Promise<Place[]> {
     try {
       return await this.webSqlService.fetchPlacesByDestinationId(destinationId);
@@ -251,14 +225,10 @@ export class DestinationsComponent implements OnInit {
   }
 
 
-
-  // viewDetails(destination: Destination): void {
-  //   this.selectedDestination = destination;
-  //   this.destinationDetailsDialog.openModal();
-  //   console.log('View Details clicked');
-  //   console.log(this.destinationDetailsDialog);
-  // }
-
+  /**
+   * Displays the destination details dialog with the specified destination's information.
+   * @param destination - The destination to display details for.
+   */
   async viewDetails(destination: Destination) {
     try {
       const places = await this.webSqlService.fetchPlacesByDestinationId(destination.id);
@@ -270,14 +240,12 @@ export class DestinationsComponent implements OnInit {
     }
   }
 
-  selectDestination(destination: Destination) {
-    this.selectedDestination = destination;
-  }
-  deselectDestination() {
-    this.selectedDestination = null;
-  }
 
-  /**Search bar functions*/
+
+  /**
+   * Searches the list of destinations based on the search input.
+   * If no search input is provided, the full list of destinations is displayed.
+   */
   searchDestinations(): void {
       if (!this.searchItem) {
       this.updatePagedDestinations();
@@ -294,7 +262,9 @@ export class DestinationsComponent implements OnInit {
   }
 
   /**
-   *Pagination pages */
+   * Navigates to the specified page and updates the displayed destinations accordingly.
+   * @param page - The page number to navigate to.
+   */
   goToPage(page: number): void {
     this.currentPage = page;
     this.updatePagedDestinations();

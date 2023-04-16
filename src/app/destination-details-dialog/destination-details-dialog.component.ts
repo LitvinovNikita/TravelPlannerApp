@@ -19,18 +19,28 @@ export class DestinationDetailsDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * Show the modal for the destination details dialog
+   */
   openModal(): void {
     this.modal.nativeElement.style.display = 'block';
   }
+
+  /**
+   * Hide the modal for the destination details dialog
+   */
   closeModal(): void {
     this.modal.nativeElement.classList.remove('show');
     this.modal.nativeElement.style.display = 'none';
     document.body.classList.remove('modal-open');
   }
 
+  /**
+   * Add the selected destination to the trip plan and navigate to the "Trip Planner" page
+   */
   addToTripPlan() {
+    //this.destination?.name ?? '' is equivalent to (this.destination && this.destination.name) || '', which returns the name property of this.destination if it's not null or undefined, or an empty string if it is.
     this.tripDataService.changeDestination(this.destination?.name ?? '');
-    //this.dialogRef.close(); // Close the destination details dialog
     this.router.navigate(['/trip-planner']); // Navigate to the "Trip Planner" page
   }
 }

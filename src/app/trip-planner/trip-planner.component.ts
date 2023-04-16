@@ -12,17 +12,35 @@ import { TripDataService } from '../services/trip-data.service';
   styleUrls: ['./trip-planner.component.css']
 })
 export class TripPlannerComponent implements OnInit {
+
+  /** Form group for the trip data. */
   tripForm: FormGroup;
+
+  /** List of all trips. */
   trips: any[] = [];
 
+  /** The currently selected trip. */
   selectedTrip: any;
 
+  /** The duration of the trip, calculated based on start and end dates. */
   duration = '';
 
+  /** Whether the component is in edit mode or not. */
   isEditMode = false;
+
+  /** Notification message for the user. */
   notification = '';
+
+  /** Today's date, formatted as a string. */
   today: string = new Date().toISOString().split('T')[0];
 
+
+  /**
+   * Creates an instance of MyTripsComponent.
+   * @param formBuilder - Service for creating form groups.
+   * @param webSqlService - Service for interacting with the WebSQL database.
+   * @param tripDataService - Service for passing data between components.
+   */
   constructor(private formBuilder: FormBuilder, private webSqlService: WebSqlService, private tripDataService: TripDataService) {
     this.tripForm = this.formBuilder.group({
       destination: ['', Validators.required],
@@ -33,6 +51,10 @@ export class TripPlannerComponent implements OnInit {
     });
   }
 
+  /**
+   * Initializes the component.
+   * Sets up the form group and subscribes to changes in the form controls.
+   */
   ngOnInit(): void {
     //this.loadTrips();
 
@@ -61,24 +83,10 @@ export class TripPlannerComponent implements OnInit {
 
   }
 
-  // async loadTrips() {
-  //   try {
-  //     this.trips = await this.webSqlService.getTrips();
-  //   } catch (error) {
-  //     console.error('Error loading trips:', error);
-  //   }
-  // }
-
-  // async addTrip(destination: string, startDate: string, endDate: string, budget: number, notes: string) {
-  //   // Add the trip
-  //   await this.webSqlService.addTrip(destination, startDate, endDate, budget, notes);
-  //
-  //   // Refresh the trips array
-  //   this.trips = await this.webSqlService.selectAll();
-  // }
-
-
-
+  /**
+   * Fills the form with data from a given trip.
+   * @param trip - The trip to fill the form with.
+   */
   fillFormWithData(trip: Trip) {
     this.tripForm.setValue({
       destination: trip.destination,
@@ -92,7 +100,10 @@ export class TripPlannerComponent implements OnInit {
 
 
 
-
+  /**
+   * Adds a new trip to the database.
+   * @returns Promise that resolves when the trip has been added.
+   */
   async addTrip() {
     const destination = this.tripForm.get('destination')?.value;
     const startDate = this.tripForm.get('startDate')?.value;
@@ -101,15 +112,7 @@ export class TripPlannerComponent implements OnInit {
     const budget = this.tripForm.get('budget')?.value;
     const notes = this.tripForm.get('notes')?.value;
 
-    // // Add the trip
-    // await this.webSqlService.addTrip(destination, startDate, endDate, duration, budget, notes);
-    //
-    // // Refresh the trips array
-    // this.trips = await this.webSqlService.selectAll();
-    //
-    // // Notify the user and clear the form fields
-    // alert('Trip added successfully!');
-    // this.tripForm.reset();
+
 
 
     if (this.isEditMode && this.selectedTrip) {
@@ -138,37 +141,11 @@ export class TripPlannerComponent implements OnInit {
     alert(this.isEditMode ? 'Trip updated successfully!' : 'Trip added successfully!');
     this.tripForm.reset();
 
-
-
-
-
-
-
-
-    // if (this.selectedTrip) {
-    //   // Update the trip
-    //   const updatedTrip: Trip = {
-    //     id: this.selectedTrip.id,
-    //     destination,
-    //     startDate,
-    //     endDate,
-    //     duration,
-    //     budget,
-    //     notes,
-    //   };
-    //   await this.webSqlService.updateTrip(updatedTrip);
-    // } else {
-    //   // Add the trip
-    //   await this.webSqlService.addTrip(destination, startDate, endDate, duration, budget, notes);
-    // }
-
-
-
-
-
   }
 
-
+  /**
+   * On submit adds/edits the form, also has some validation
+   * */
   onSubmit() {
     if (this.tripForm.invalid) {
       this.tripForm.markAllAsTouched();
@@ -222,27 +199,6 @@ export class TripPlannerComponent implements OnInit {
   }
 
 
-
-
-  // onSubmit() {
-  //   if (this.tripForm.invalid) {
-  //     this.tripForm.markAllAsTouched();
-  //     return;
-  //   }
-  //
-  //
-  //   if (this.isEditMode) {
-  //     this.updateTrip(this.selectedTrip);
-  //   } else {
-  //     this.addTrip();
-  //   }
-  //
-  //   //this.addTrip();
-  // }
-
-
-
-
   clearForm() {
     this.tripForm.reset();
     this.duration = '';
@@ -278,44 +234,10 @@ export class TripPlannerComponent implements OnInit {
       notes: trip.notes,
     });
 
-    // Calculate and set the duration
-    // const start = new Date(trip.startDate);
-    // const end = new Date(trip.endDate);
-    // this.duration = this.calculateDuration(start, end).toString();
+
   }
 
 
-  // editTrip(trip: Trip) {
-  //   this.selectedTrip = trip;
-  //   this.tripForm.setValue({
-  //     destination: trip.destination,
-  //     startDate: trip.startDate,
-  //     endDate: trip.endDate,
-  //     budget: trip.budget,
-  //     notes: trip.notes
-  //   });
-  //
-  //
-  //   this.isEditMode = true;
-  //   this.fillFormWithData(trip);
-  //
-  // }
-  // async updateTrip(id: number, destination: string, startDate: string, endDate: string, budget: string, notes: string) {
-  //   // Fetch the trip by ID
-  //   const trip = await this.webSqlService.selectTrip(id);
-  //
-  //   // Update the trip
-  //   trip.destination = destination;
-  //   trip.startDate = startDate;
-  //   trip.endDate = endDate;
-  //   trip.budget = budget;
-  //   trip.notes = notes;
-  //
-  //   await this.webSqlService.updateTrip(trip);
-  //
-  //   // Refresh the trips array
-  //   this.trips = await this.webSqlService.selectAll();
-  // }
 
   async updateTrip(trip: Trip) {
     // Fetch the trip by ID
