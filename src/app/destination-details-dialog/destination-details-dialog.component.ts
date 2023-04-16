@@ -1,6 +1,8 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import { Place } from '../interfaces/place.interface';
 import {Destination} from "../interfaces/destination.interface";
+import { TripDataService } from '../services/trip-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-destination-details-dialog',
@@ -12,7 +14,7 @@ export class DestinationDetailsDialogComponent implements OnInit {
   @ViewChild('modal', { static: false }) modal!: ElementRef;
   destination: Destination | null = null;
   places: Place[] = [];
-  constructor() { }
+  constructor(private tripDataService: TripDataService, private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +26,12 @@ export class DestinationDetailsDialogComponent implements OnInit {
     this.modal.nativeElement.classList.remove('show');
     this.modal.nativeElement.style.display = 'none';
     document.body.classList.remove('modal-open');
+  }
+
+  addToTripPlan() {
+    this.tripDataService.changeDestination(this.destination?.name ?? '');
+    //this.dialogRef.close(); // Close the destination details dialog
+    this.router.navigate(['/trip-planner']); // Navigate to the "Trip Planner" page
   }
 }
 

@@ -50,6 +50,12 @@ export class TripPlannerComponent implements OnInit {
       }
     });
 
+    this.tripDataService.currentDestination.subscribe((destination) => {
+      if (destination) {
+        this.tripForm.controls['destination'].setValue(destination);
+      }
+    });
+
   }
 
   // async loadTrips() {
