@@ -34,14 +34,14 @@ The app should meet the following requirements:
 
 
 ## Technologies
-* Angular: A powerful web application framework for building dynamic and efficient single-page applications.
-* TypeScript: A statically-typed superset of JavaScript that adds optional types and features to enhance code readability and maintainability.
-* Semantic HTML5 markup: Using HTML elements to give meaning to content and structure web pages in a more accessible and SEO-friendly way.
-* CSS custom properties/vars: Declaring reusable variables in CSS to make it easier to maintain and change the look and feel of a website.
-* Bootstrap: A popular front-end framework for designing responsive and modern web applications with pre-built components and styles.
-* Desktop-first workflow: Designing and developing a website with a focus on the desktop version first, then adapting it for smaller screen sizes using responsive design techniques.
-* WebSQL: A client-side database management system for storing data within the user's browser, allowing for structured storage, retrieval, and modification of data.
-* Cordova: An open-source platform for building native mobile applications using HTML, CSS, and JavaScript, enabling the conversion of web applications to Android APKs and other mobile platforms.
+* *Angular:* A powerful web application framework for building dynamic and efficient single-page applications.
+* *TypeScript:* A statically-typed superset of JavaScript that adds optional types and features to enhance code readability and maintainability.
+* *Semantic HTML5 markup:* Using HTML elements to give meaning to content and structure web pages in a more accessible and SEO-friendly way.
+* *CSS custom properties/vars:* Declaring reusable variables in CSS to make it easier to maintain and change the look and feel of a website.
+* *Bootstrap:* A popular front-end framework for designing responsive and modern web applications with pre-built components and styles.
+* *Mobile-first workflow:* Designing and developing a website with a focus on the mobile version first, then adapting it for bigger screen sizes using responsive design techniques.
+* *WebSQL:* A client-side database management system for storing data within the user's browser, allowing for structured storage, retrieval, and modification of data.
+* *Cordova:* An open-source platform for building native mobile applications using HTML, CSS, and JavaScript, enabling the conversion of web applications to Android APKs and other mobile platforms.
 
 ## Author
 Author: [Nikita Litvinov](https://github.com/LitvinovNikita)
